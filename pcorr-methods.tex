@@ -1,0 +1,82 @@
+\section{Materials and Methods}
+
+\subsection{Ethics statement}
+All procedures were conducted in accordance with the ethical guidelines of the National Institutes of Health and were approved by the Baylor College of Medicine IACUC.
+
+\subsection{Surgery and two-photon imaging}
+The surgical procedures and data acquisition were performed as described in \citep{Cotton:2013}: C57BL/6J mice (aged p40--60) were used. Anesthesia was initiated with isoflurane (3\%) and maintained with the mixture of fentanyl (0.05 mg/kg), midazolam (5 mg/kg), and medetomidine (0.5 mg/kg), with boosts of half the initial dose every 3 hours.  A craniotomy was performed over the right primary visual cortex.  Membrane-permeant calcium indicator Oregon Green 488 BAPTA-1 AM (OGB-1, Invitrogen) was loaded by bolus injection.  The craniotomy was sealed using a glass coverslip secured with dental cement.
+
+Calcium imaging began 1 hour after dye injection.  All imaging was performed using 3D-RAMP two-photon microscopy \citep{Cotton:2013}. First, a 3D stack was acquired and cells were manually segmented. Then calcium signal were collected by sampling in the center of each cell at rates of 100 Hz or higher, depending on the number of cells.
+
+\subsection{Visual stimulus}
+The visual stimulus consisted of full-field drifting gratings with 90\% contrast, luminance of 10 cd/m$^2$, spatial frequency of 0.08 cycles/degree, and temporal frequency of 2 cycles/s. Two types of stimuli were presented for each imaging site: First, directional tuning was mapped using a pseudo-random sequence of drifting gratings at sixteen directions of motion, 500 ms per direction, without blanks, with 12--30 trials for each direction of motion.  Second, ro measure correlations, the stimulus was modified to include only two directions of motion (in 9 datasets) or five directions (in 22 datasets) and the gratings were presented for 1 second and were separated by 1-second blanks, with 100--300 trials for each direction of motion.
+
+\subsection{Data processing}
+All data were processed in MATLAB using the DataJoint data processing chain toolbox (http://datajoint.github.com).
+
+The measured fluorescent traces were deconvolved to reconstruct the firing rates for each neuron: First, the first principal component was subtracted from the raw traces in order to reduce common mode noise related to small cardiovascular movements \citep{Cotton:2013}. The resulting traces were high-pass filtered above 0.1 Hz and downsampled to 20 Hz (Fig.~\ref{fig:2} C). Then, the firing rates were estimated using by nonnegative deconvolution \citep{Vogelstein:2010}.
+
+Orientation tuning was computed by fitting the mean firing rates for each direction of motion $\phi$ using two-peaked von Mises tuning functions $f(\phi)=a + b\exp\left[\frac 1 w(\cos(\phi-\theta)-1) \right] + c\exp\left[\frac 1 w(\cos(\phi-\theta+\pi)-1) \right]$ where $b\ge c$ are the amplitudes of the two respective peaks, $w$ is the tuning width, and  $\theta$ is the preferred direction. The significance of the fit was determined by the permutation test: the labels of the direction were randomly permuted 10,000 times; the $p$-values of the fits were computed as the fraction of permutations that yielded $R^2$ equal to or higher than that of the original data.  Cells were considered tuned with $p<0.05$.
+
+For covariance estimation, the analysis was limited to the period with 2 or 5 stimulus conditions and lasted between 14 and 27 minutes (mean 22 minutes).  Cells that did not have substantial spiking activity (those whose variance was less than 1\% of the median across the site) or whose activity was unstable (those whose variance in the least active quarter of the recording did not exceed 1\% of the variance in the most active quarter) were excluded from the analysis.
+
+\subsection{Cross-validation}
+To compare the performance of the estimators, we used conventional 10-fold cross-validation: Trials were randomly divided into 10 subsets with approximately equal numbers of trials of each condition in each subset. Each subset was then used as the testing sample with the rest of the data used as the training sample for estimating the covariance matrix. The average validation loss over the 10 folds was reported.
+
+Since each of the regularized estimators had one or two hyperparameters, we used \emph{nested cross-validation}:  The outer loop evaluated the performance of the estimators with the hyperparameter values optimized by cross-validation within the inner loop.  Hyperparameters were optimized by a two-phase search algorithm: random search to find a good starting point for the subsequent pattern search to find the global minimum.  The inner cross-validation loop subdivided the training dataset from the outer loop to perform 10-fold cross-validation in order to evaluate each choice of the hyperparameter values.  Thus the size of the training dataset within the inner loop comprised 81\% of the entire recording. Fig.~S1 illustrates the dependence of the validation loss on the hyperparameters of the $C_{\sf sparse+latent}$ estimator for the example site shown in Figures \ref{fig:2} and \ref{fig:4} and the optimal value found by the pattern search algorithm.
+
+When the validation loss was not required, only the inner loop of cross-validation was used on the entire dataset.  This approach was used to compute the covariance matrix estimates and their excess loss in the simulation study (Fig.~\ref{fig:1} Rows 4 and 5) and to analyze the partial correlation structure of the $C_{\sf sparse+latent}$ estimator (Fig.~\ref{fig:4}--\ref{fig:6}).
+
+\subsection{Covariance estimation}
+Within the inner loop of cross-validation, regularized covariance matrix estimation required only the sample covariance matrix $C_{\sf sample}$ of the training dataset and the hyperparameter values provided by the outer loop.
+
+Estimator $C_{\sf diag}$ (Eq.~\ref{eq:c-diag})  used two hyperparameters: the covariance shrinkage intensity $\lambda \in [0,1]$ and variance shrinkage intensity $\alpha \in [0,1]$.  The variances (the diagonal of $C_{\sf sample}$) were shrunk linearly toward their mean value $\frac 1 p \Tr(C_{\sf sample})$:
+\begin{equation}
+D = (1-\alpha)C_{\sf sample}\circ I + \alpha \frac 1 p \Tr(C_{\sf sample}) I
+\end{equation}
+The $C_{\sf diag}$ estimate was then obtained by shrinking $C_{\sf sample}$ toward $D$ according to Eq.~\ref{eq:c-diag}.
+
+In estimator $C_{\sf factor}$ (Eq.~\ref{eq:c-factor}), the low-rank matrix $L$ and the diagonal matrix $D$ are found by solving the minimization problem
+\begin{equation}
+(L,D) = \argmin\limits_{\hat L,\hat D} \loss{\hat L + \hat D,C_{\sf sample}},
+\end{equation}
+by an expectation-maximization (EM) algorithm with specified rank of $L$. Additional the diagonal matrix of individual variances is shrunk toward its mean value according to Eq.~\ref{eq:c-factor}.
+
+In estimator $C_{\sf sparse}$ (Eq.~\ref{eq:c-sparse}), the sparse precision matrix $S$ is found by minimizing the $L_1$-penalized loss with regularization parameter $\lambda$:
+\begin{equation}
+S = \argmin\limits_{\hat S \succ 0} \loss{{\hat S}^{-1},C_{\sf sample}} + \lambda \|\hat S \|_1
+\end{equation}
+where $\hat S\succ 0$ denotes the constraint that $\hat S$ be a positive-definite matrix and $\|\hat S\|_1$ is the element-wise $L_1$ norm of the matrix $\hat S$. This problem formulation is known as \emph{graphical lasso} \cite{pMeinshausen:2006, Friedman:2008}. To solve this minimization problem, we adapted the alternative-direction method of multipliers (ADMM) \citep{Ma:2013}.
+Unlike $C_{\sf diag}$ and $C_{\sf factor}$, this estimator does not include linear shrinkage: the selection of the sparsity level provides sufficient flexibility to fine-tune the regularization level.
+
+Estimator $C_{\sf sparse+latent}$ (Eq.~\ref{eq:c-sl}) estimates a larger sparse precision matrix $S^\ast$ of the joint distribution of the $p$ observed neurons and $d$ latent units.
+\begin{equation}
+S^\ast=
+\begin{pmatrix}
+S & S_{12} \\
+S_{12}^\T & S_{22}
+\end{pmatrix},
+\end{equation}
+where the $p\times p$ partition $S$ corresponds to the visible units.
+Then the covariance matrix of the observed population is
+\begin{equation}
+C_{\sf sparse+latent} = \left(S-S_{12}S_{22}^{-1}S_{12}^\T\right)^{-1}
+\end{equation}
+The rank of the $p\times p$  matrix $L=S_{12}S_{22}^{-1}S_{12}^\T$ matches the number of the latent units in the joint distribution. Rather than finding $S_{12}$ and $S_{22}$ separately, $L$ can be estimated as a low-rank matrix. We adapted the ADMM algorithm to minimize the loss function with $L_1$ penalty on $S$ to regulate its sparseness and nuclear norm penalty on $L$ to regulate its rank \citep{Chandrasekaran:2010,Ma:2013}:
+\begin{equation}\label{eq:ma}
+(S,L) = \argmin\limits_{\hat S,\hat L} \loss{\hat S-\hat L, C_{\sf sample}} + \alpha\|\hat S\|_1 + \beta\Tr(\hat L)
+\end{equation}
+
+The partial correlation matrix (Eq.~\ref{eq:partial}) computed from $C_{\sf sparse+latent}$ includes interactions between the visible and latent units and was used in Fig.~\ref{fig:4} C and D and Fig.~\ref{fig:5} C, and Fig.~\ref{fig:6} A--C).  The partial correlation matrix computed from $S$ alone expresses strengths of pairwise interactions
+\begin{equation}
+P_{\sf sparse} = -(S\circ I)^{-\frac 1 2} S  (S\circ I)^{-\frac 1 2}
+\end{equation}
+and were used in Fig.~\ref{fig:4} F, G, H.
+
+The MATLAB code for these computations is available online at http://github.com/atlab/cov-est.
+\subsection{Cross-validation with conditioned variances}
+This study required an unbiased estimate of the discrepancy between various correlation matrix estimates and the true value of the correlation matrix. This was accomplished by cross-validation whereby regularized covariance matrix estimates computed from training samples were compared to unbiased covariance matrix estimates computed from independent testing samples. Loss functions were defined with respect to the covariance matrix rather than the correlation matrix because no unbiased estimate of the correlation matrix exists for finite sample sizes in the general case \citep{Fisher:1921}. In particular, we showed that with the normal loss function (Eq.~\ref{eq:loss}), the validation loss $\loss{C,C_{\sf sample}^\prime}$ is an unbiased estimate of true loss when $C_{\sf sample}^\prime$ is an unbiased estimate. However, this approach only worked under the assumption of uniform variances across all conditions included in the training and testing samples.  Here, we extend the validation loss to the estimation and evaluation of a common correlation matrix across multiple conditions with different variances.
+
+Let $T_c$ and $T_c^\prime$ denote the time bin indices for the training and testing samples, respectively, limited to condition $c$. Here, the prime symbol marks quantities estimated from the testing sample.
+
+

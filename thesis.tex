@@ -4,6 +4,17 @@
 \usepackage{setspace}
 \usepackage{natbib}
 \doublespacing
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+
+%%%%%%%% Declarations %%%%%%%%%%%%%%%
+\DeclareMathOperator{\Tr}{tr}
+\newcommand{\loss}[1]{\mathcal L\left(#1\right)}
+\newcommand{\T}{{\sf T}}
+\newcommand{\E}[2][]{\mathbb E_{#1}\left[ #2\right]}    % expected value
+\DeclareMathOperator*{\argmin}{arg\,min}
+
 
 \begin{document}
 
@@ -121,7 +132,7 @@ Date \underline{\hspace{3in}}
 
 \chapter*{Abstract}
 \addcontentsline{toc}{chapter}{\numberline{}Abstract}
-\include{abstract.tex}
+\input{abstract.tex}
 
 \tableofcontents
 
@@ -140,6 +151,14 @@ Date \underline{\hspace{3in}}
 This work has been submitted for publication as \citep{Yatsenko:2014}
 \clearpage
 
+\input{pcorr-abstract.tex}
+\input{pcorr-intro.tex}
+\input{pcorr-results-theory.tex}
+\input{pcorr-results-simulation.tex}
+\input{pcorr-results-empirical.tex}
+\input{pcorr-discussion.tex}
+\input{pcorr-methods.tex}
+
 \chapter{Differential functional connectivity of parvalbumin-positive cells}
 \clearpage
 
@@ -151,7 +170,7 @@ This work has been submitted for publication as \citep{Yatsenko:2014}
 \appendix
 
 \chapter{Cross-validation with condition specific variances}
-\bibliographystyle{mystyle}
+\bibliographystyle{dy-thesis-style}
 \bibliography{biblio.bib}
 \addcontentsline{toc}{chapter}{\numberline{}Bibliography}
 
