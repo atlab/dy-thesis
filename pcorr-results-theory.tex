@@ -31,6 +31,8 @@ As the size of recorded neuronal populations increases, without substantial incr
 
 We considered four regularized estimators based on distinct families of target estimates: $C_{\sf diag}$, $C_{\sf factor}$, $C_{\sf sparse}$, and $C_{\sf sparse+latent}$. In probabilistic models with exclusively linear dependencies, the target estimates of these estimators correspond to distinct families of graphical models (Fig.~\ref{fig:1} Row 1).
 
+\input{fig-pcorr-1.tex}  %%%%%%%%%%%% Figure 1
+
 The target estimate of estimator $C_{\sf diag}$ is the diagonal matrix $D$ containing estimates of neurons' variances. Regularization is achieved by linear \emph{shrinkage} of the unbiased estimate $C_{\sf sample}$ toward $D$ controlled by the scalar \emph{shrinkage intensity} parameter $\lambda \in [0, 1]$:
 \begin{equation}\label{eq:c-diag}
     C_{\sf diag} = (1-\lambda) C_{\sf sample} + \lambda D
