@@ -74,9 +74,56 @@ P_{\sf sparse} = -(S\circ I)^{-\frac 1 2} S  (S\circ I)^{-\frac 1 2}
 and were used in Fig.~\ref{fig:4} F, G, H.
 
 The MATLAB code for these computations is available online at http://github.com/atlab/cov-est.
+
 \subsection{Cross-validation with conditioned variances}
 This study required an unbiased estimate of the discrepancy between various correlation matrix estimates and the true value of the correlation matrix. This was accomplished by cross-validation whereby regularized covariance matrix estimates computed from training samples were compared to unbiased covariance matrix estimates computed from independent testing samples. Loss functions were defined with respect to the covariance matrix rather than the correlation matrix because no unbiased estimate of the correlation matrix exists for finite sample sizes in the general case \citep{Fisher:1921}. In particular, we showed that with the normal loss function (Eq.~\ref{eq:loss}), the validation loss $\loss{C,C_{\sf sample}^\prime}$ is an unbiased estimate of true loss when $C_{\sf sample}^\prime$ is an unbiased estimate. However, this approach only worked under the assumption of uniform variances across all conditions included in the training and testing samples.  Here, we extend the validation loss to the estimation and evaluation of a common correlation matrix across multiple conditions with different variances.
 
 Let $T_c$ and $T_c^\prime$ denote the time bin indices for the training and testing samples, respectively, limited to condition $c$. Here, the prime symbol marks quantities estimated from the testing sample.
 
+Similar to Eq.~\ref{eq:sample}, the training and testing sample covariance matrices for condition $c$ are
+\begin{equation}
+    C_{c,{\sf sample}}
+    = \frac 1{n_c} \sum\limits_{t\in T_c}\left(x(t)-\bar x_c\right)\left(x(t)-\bar x_c\right)^\T
+\end{equation}
+and
+\begin{equation}
+    C_{c,{\sf sample}}^\prime
+    = \frac 1{n_c^\prime} \sum\limits_{t\in T_c^\prime}\left(x(t)-\bar x_c\right)\left(x(t)-\bar x_c\right)^\T
+\end{equation}
+Here $n_c$ and $n_c^\prime$ denote the sizes of $T_c$ and $T_c^\prime$, respectively.
+
+Note that $\bar x_c= \frac 1 {n_c} \sum\limits_{t \in T_c}x(t)$ is estimated from the training sample but used in both estimates, making $C_{c,\sf sample}^\prime$ an unbiased estimate of the true covariance matrix, $\Sigma$. As such, $C_{c,\sf sample}^\prime$ can be used for validation.
+
+The common correlation matrix $R_{\sf sample}$ is estimated by averaging the condition-specific correlations:
+\begin{equation}
+    R_{\sf sample}  
+    = \frac 1 n \sum\limits_c n_c \left(V_{c,\sf sample}^{-\frac 1 2}C_{c,\sf sample}V_{c,\sf sample}^{-\frac 1 2}\right)
+    = \frac 1 n \sum\limits_c \sum\limits_{t \in T_c} z(t)z(t)^\T,
+\end{equation}
+where $n=\sum\limits_c n_c$ and $V_{c,\sf sample} = C_{c,\sf sample} \circ I$ is the diagonal matrix containing the sample variances. Then $R_{\sf sample}$ is simply the covariance matrix of the $z$-score signal $z(t) = V_{c,\sf sample}^{-\frac 1 2} \left(x(t) - \bar x_c\right)$ of the training sample.
+
+For consistency with prior work, we applied regularization to covariance matrices rather than to correlation matrices. The common covariance matrix was estimated by scaling $R_{\sf sample}$ by the average variances across conditions $V_{\sf sample} = \frac 1 n \sum\limits_c n_c V_{c,\sf sample}$:
+\begin{equation}
+    C_{\sf sample} = V_{\sf sample}^{\frac 1 2} R_{\sf sample} V_{\sf sample}^{\frac 1 2}
+\end{equation}
+Note that $C_{\sf sample}$ differs from the sample covariance matrix computed without conditioning the variances on $c$ and this computation helps avoid any biases that would be introduced by ignoring changes in variance.
+
+The covariance matrix estimators $C_{\sf diag}$, $C_{\sf factor}$, $C_{\sf sparse}$ or $C_{\sf sparse+latent}$ convert $C_{\sf sample}$ into its regularized counterpart denoted here as $C_{\sf reg}$.
+
+To evaluate the estimators, we regularized the conditioned variances by linear shrinkage toward their mean value across all conditions. This was done by scaling $C_{\sf reg}$ by the conditioned variance adjustment matrix $Q_c = \delta I + (1-\delta)V_{\sf sample}^{-1} V_{c,\sf sample}$ to produce the conditioned regularized covariance matrix estimate:
+\begin{equation}
+C_{c,\sf reg} = Q_c^{\frac 1 2} C_{\sf reg} Q_c^{\frac 1 2}
+\end{equation}
+
+The variance regularization parameter $\delta \in [0,1]$ was optimized in the inner loop of cross-validation along with the other hyperparameters.
+
+The overall loss function is obtained by averaging the loss functions across all the conditions:
+\begin{equation}\label{eq:full-loss}
+\frac 1 {\sum\limits_c n_c^\prime}\sum\limits_c n_c^\prime \loss{C_{c,\sf reg}, C_{c,\sf sample}^\prime} 
+\end{equation}
+
+With the normal loss $\loss{\cdot,\cdot}$ (Eq.~\ref{eq:loss}) and the unbiased testing covariance matrix $C_{c,\sf sample}$, the loss function in Eq.~\ref{eq:full-loss} is an unbiased estimate of the true loss. Hence, it was used for evaluations reported in Fig.~\ref{fig:3}.
+
+\subsection*{Simulation}
+For simulation, ground truth covariance matrices were produced by taking 150 independent samples from an artificial population of 50 independent, identically normally distributed units. The covariance matrices were then subjected to the respective regularizations to produce the ground truth matrices for the simulation studies (Fig.~\ref{fig:1} Row 2). Samples were then drawn from multivariate normal distributions with the respective true covariance matrices to be estimated by each of the estimators.
 
