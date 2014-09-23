@@ -6,9 +6,12 @@
 \usepackage[inner=1.25in,outer=1.25in,top=1.25in,bottom=1.25in]{geometry}
 \doublespacing
 \usepackage{amsmath}
+\usepackage{bibentry}
+\nobibliography*   % This is necessary for bibentry to work
 \usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage{dpfloat}
+\renewcommand{\theequation}{\arabic{equation}}
 \renewcommand{\thefigure}{\arabic{figure}}
 
 
@@ -21,8 +24,8 @@
 \DeclareMathOperator*{\argmin}{arg\,min}
 
 \newcommand{\sq}[1]{\lq#1\rq}
-\newcommand{\ie}{\emph{i.e.}\;}
-\newcommand{\eg}{\emph{e.g.}\;}
+\newcommand{\ie}{\emph{i.e.}\ }
+\newcommand{\eg}{\emph{e.g.}\ }
 
 \begin{document}
 
@@ -57,7 +60,7 @@ by
 \vfill
 Houston, Texas
 
-September 2014
+October 2014
 
 \end{center}
 \end{titlepage}
@@ -153,7 +156,7 @@ Date \underline{\hspace{3in}}
 \input{intro.tex}
 
 \chapter{Functional connectivity in neural circuits inferred from partial correlations}
-This work has been submitted for publication as \citep{Yatsenko:2014}
+This work has been submitted for publication in \bibentry{Yatsenko:2014}.
 \clearpage
 
 \input{pcorr-abstract.tex}
@@ -168,7 +171,8 @@ This work has been submitted for publication as \citep{Yatsenko:2014}
 \clearpage
 
 \section{Introduction}
-\citep{Hofer:2011, Packer:2011}
+\input{pv-intro.tex}
+
 \section{Experimental Procedures}
 \input{pv-labeling.tex}
 

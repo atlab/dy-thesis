@@ -1,5 +1,21 @@
-Current standard models of the brain's sensory circuits are derived from and supported by detailed empirical characterizations of the responses of individual neurons to external stimuli.
-Single-unit statistical descriptions of neurons' stimulus response properties such as, for example, the \emph{receptive field} and \emph{feature selectivity} have proven immensely successful in defining the \emph{functional architecture} of neural circuits and systems: the relationship between response properties of individual cells and the anatomical organization of the circuits  \citep{Ohki:2005,Reid:2012}.
-Yet neuroscientists have long recognized that the more intriguing brain functions must be expressed in the dynamic, recurrent interactions between neurons and in the emergent, intrinscially generated population activity that is not reducible to stimulus-driven response \citep{Yuste:2005}.
-This recognition motivates ambitious technological developments to record the simultanous spiking activity of large populations of neurons in intact neural circuits \emph{Alivisatos:2013}. 
-It is often taken for granted that large-scale recordings of the spiking activity of cells large-scale recordings of the spiking activity of cells 
+Neurons in sensory cortical areas are tightly embedded in local microcircuits with their own dynamics and intrinsic patterns of activity.  
+Yet present knowledge of the functional architecture of sensory circuits is formulated, primarily, in terms of the response properties of invidual cells to external stimuli.
+Further understanding of cortical computation depends on characterizing the simultaneous activity of entire local circuits and analyzing interactions between their components, \ie their \emph{functional connectivity}.
+Therefore, a foremost challenge in systems neuroscience is to record the simultaneous spiking activity of sufficiently large and densely sampled populations, to extract the essential properties of such activity, and to relate these properties to circuit anatomy. 
+
+To address this challenge, we used high-speed 3D two-photon imaging of calcium signals in mouse primary visual cortex to record the simultaneous activity of nearly every neuron in volumes 200 $\mu$m wide and 100 $\mu$m deep (150--450 cells) during visual stimulation. 
+Previous studies have characterized population calcium activity by using Pearson correlation matrices, cross-correlations, or coactivation patterns.  
+We introduced the use of \emph{pairwise partial noise correlations}, \ie correlations between pairs of neurons remaining after subtracting the portions of their activity predicted linearly from the activity of all the other recorded cells as well as the external stimulus, for describing the functional connectivity in neuronal population signals. 
+We hypothesized that such conditioning would reveal more immediate interactions between individual cells and exhibit stronger relationships to circuit anatomy than Pearson correlations.
+First, we showed that estimation of partial noise correlations required \emph{regularization}, \ie imposing a structure on the estimate in order to reduce the estimation error. 
+Among several regularization schemes that we evaluated, the optimal scheme decomposed the matrix of partial pairwise correlations into a sparse component and a low-rank component. 
+Conceptually, the sparse component represents `interactions' between specific pairs of the recorded neurons whereas the low-rank component represents `latent units', \ie widespread fluctuations such as arising from shared divergent input or from emergent synchronous activity.
+
+To verify that partial correlations were effective expressions of functional connectivity, we demonstrated that they exhibited stronger relationships to circuit anatomy and to the functional properties of individual cells than Pearson correlations. 
+For example, we found that they more clearly differentiated similarly tuned pairs from differently tuned pairs and nearby pairs from distant pairs.  
+Furthremore, genetic labeling of parvalbumin-positive (PV+) interneurons revealed distinct levels of  partial correlations between PV--/PV--, PV+/PV--, and PV+/PV+ pairs. 
+Surprisingly, PV+/PV+ pairs had the strongest partial correlations with dense positve pairwise connectivity. 
+This finding contradicts the commonly held belief that PV+ interneuronal networks reflect  the common fluctuations of the local microcircuit. Instead, this finding is consistent with detailed, specific input from a spontaneously active layer such as L5.
+Furthermore, partial correlations of distantly spaced PV+/PV-- pairs exhibited a consistently negative average partial correlations consistent with lateral inhibition of pyramidal cells by PV+ interneurons. 
+
+These results show that partial correlations in densely sampled groups of cortical neurons, regularized as a mixture of a sparse and a low-rank components, provide useful description of population activity during sensory processing as demonstrated by their improved differentiation of anatomical attributes of the circuit.  Furthremore, the relationships between the structure of the estimate and circuit anatomy suggested hypotheses for mechanistic interactions in the circuit, which can be tested by combinging these studied with other anatomical techiques in future studies.
