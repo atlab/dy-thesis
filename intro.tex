@@ -13,20 +13,12 @@ Two-photon imaging of somatic calcium signals has emerged as the method of choic
 Recent advances have made it possible to simultaneously record the calcium activity of nearly every cell in a volume of tissue \citep{Reddy:2005, Katona:2012, Cotton:2013}. 
 However, somatic calcium signals are imperfect approximations of the spiking activity: their low temporal resolution, optical contamination, and motion artifacts impose limitations on the inference of functional connectivity compared to electrophysiological recordings \citep{Gobel:2007,Grewe:2010}.
 
-I use the term \emph{functional connectivity} to refer generally to any descriptive statistics of the joint activity of a recorded population of neurons. 
-In various studies, measures of functional connectivity are intended for either of two distinct purposes: to characterize the coding of information or to characterize the interactions between the elements of the circuit. 
+Studies of the simultaneous activity of populations of neurons have sought to characterize the coding of information or infer interactions between the neurons \citep{Averbeck:2006,Stevenson:2008}. The two aims are related since interactions between neurons result in statistical dependence between their spike trains, which in turn affects the amount of information carried by the spike trains when considered jointly.
 
-The term \emph{functional connectivity} has variously used in the literature to denote descriptive statistics of  association between the activity of neurons \cite{Feldt:2011}. 
-
-
-\section{Relationship between functional connectivity and circuit anatomy}
-
-Besides recording the activity of cells, Two-photon imaging show the physical arrangement of the recorded cells and, in combination with genetically encoded fluorescent markers and synaptic tracers, 
+We use the term \emph{functional connectivity} to refer to statistical descriptions of neuronal population activity designed to characterize interactions between them. 
 
 
-
-
-Various statistical tools have been designed to express interactions or the \emph{functional connectivity} between spike trains recorded from a group of neurons \citep{Brown:2004}. The most popular statistical expression of the functional connectivity has been the Pearson correlation coefficient between cell pairs, often in the form of a crosscorrelogram \citep{Gerstein:1969, Denman:2013, Sadovsky:2014}. 
+Various statistical tools have been designed to express interactions or the \emph{functional connectivity} between spike trains recorded from a group of neurons . The most popular statistical expression of the functional connectivity has been the Pearson correlation coefficient between cell pairs, often in the form of a crosscorrelogram \citep{Gerstein:1969, Denman:2013, Sadovsky:2014}. 
 
 The \emph{partial correlation} between a pair of variables is the correlation that remains after controlling for a third variable. The removal of the effect of a third variable can produce a clearer expression of the direct association between the variables.
 For example, the partial correlations between pairs of neurons with respect to the stimulus is known as \emph{noise correlations} because, to a linear decoder of the population response, deviations from the mean response are considered noise \citep{Zohary:1994}. 
