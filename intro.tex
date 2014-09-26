@@ -1,14 +1,31 @@
 \section{Computations in cortical microcircuits}
-Little is known about the operating principles of the cerebral cortex underlying its immense capabilities. 
-Understanding these principles holds promise of treating neurological disorders and even reproducing brain function in artificial neural networks.
-The cerebral cortex is hypothesized to comprise smaller modules, replicated across the brain, that implement canonical computations adaptable to solving different problems in each brain region \citep{Mountcastle:1997, Douglas:2007}. 
-Thus the path to understanding cortical computations must begin by understanding canonical computations in local microcircuits.
+Despite the vast amount of exquisite detail known about the anatomy and physiology of the cerebral cortex, its general operating principles remain unknown. 
+Understanding these principles holds promise of treating neurological disorders and even replicating in artificial machines the kinds of cognitive abilities that only animals have so far possessed.
 
-Several lines of evidence support the predominance of local computations consistent with a modular design of the cerebral cortex:
-Synaptic connectivity between cortical layers and cell types shares similar organization across different brain areas and species \citep{Douglas:2004}. 
-Furthermore, the activity of local circuits has been shown to be governed by stereotyped dynamical patterns across different stimulus conditions and during spontaneous activity \citep{MacLean:2005,Luczak:2009,Harris:2011,Hofer:2011,Miller:2014}. 
+Several features of cortical architecture suggest that it may have a uniform functional design: an array of smaller modules carrying out canonical, general-purpose computations capable and versatile enough for solving different problems in different brain regions \citep{Mountcastle:1997, Douglas:2007}. 
+Within the cortex, local synaptic connectivity is dense and recurrent while different cortical areas exhibit similar connectivity patterns between cortical layers, between different cell types, and to and from the subcortical regions \citep{Douglas:2004,Harris:2013}. 
+Furthermore, the multineuronal spiking activity of local populations consists of stereotyped dynamical patterns that are largely shaped by the local recurrent networks and can be triggered by external stimuli or occur spontaneously \citep{MacLean:2005,Luczak:2009,Harris:2011,Hofer:2011,Miller:2014}. 
+If local canonical computations do indeed exist, describing and understanding the repertoire and implementation of the activity of cortical microcircuits could hold the key to a broad understanding of brain function.
 
-\section{Functional connectivity from noise correlations}
+\section{Functional connectivity from calcium signals}
+Functional characterization of a cortical microcircuit requires measurements of the spiking activity of a sufficient fraction of its neurons simultaneously. 
+Two-photon imaging of somatic calcium signals has emerged as the method of choice thanks to its ability to record from a large number of closely spaced cells \emph{in vivo} \citep{Stosiek:2003,Ko:2011,Ko:2013,Hofer:2011}. 
+Recent advances have made it possible to simultaneously record the calcium activity of nearly every cell in a volume of tissue \citep{Reddy:2005, Katona:2012, Cotton:2013}. 
+However, somatic calcium signals are imperfect approximations of the spiking activity: their low temporal resolution, optical contamination, and motion artifacts impose limitations on the inference of functional connectivity compared to electrophysiological recordings \citep{Gobel:2007,Grewe:2010}.
+
+I use the term \emph{functional connectivity} to refer generally to any descriptive statistics of the joint activity of a recorded population of neurons. 
+In various studies, measures of functional connectivity are intended for either of two distinct purposes: to characterize the coding of information or to characterize the interactions between the elements of the circuit. 
+
+The term \emph{functional connectivity} has variously used in the literature to denote descriptive statistics of  association between the activity of neurons \cite{Feldt:2011}. 
+
+
+\section{Relationship between functional connectivity and circuit anatomy}
+
+Besides recording the activity of cells, Two-photon imaging show the physical arrangement of the recorded cells and, in combination with genetically encoded fluorescent markers and synaptic tracers, 
+
+
+
+
 Various statistical tools have been designed to express interactions or the \emph{functional connectivity} between spike trains recorded from a group of neurons \citep{Brown:2004}. The most popular statistical expression of the functional connectivity has been the Pearson correlation coefficient between cell pairs, often in the form of a crosscorrelogram \citep{Gerstein:1969, Denman:2013, Sadovsky:2014}. 
 
 The \emph{partial correlation} between a pair of variables is the correlation that remains after controlling for a third variable. The removal of the effect of a third variable can produce a clearer expression of the direct association between the variables.
@@ -16,9 +33,8 @@ For example, the partial correlations between pairs of neurons with respect to t
 
 Noise correlations are most often analyzed for their effect on the accuracy of stimulus coding by a linear decoder that receives input read the recorded population \citep{Averbeck:2006,Ecker:2011} rather than a statistical expression of the functional connectivity. 
 
-A serious limitation of earlier studies has been the sparse sampling of neurons in the circuit.  Two-photon imaging of somatic calcium signals has emerged as the method of choice for studying local microcircuits \citep{Stosiek:2003,Ko:2011,Ko:2013,Hofer:2011}.  Recent advances have made it possible to simultaneously record the activity of nearly every cell in a volume of tissue \emph{in vivo} \citep{Reddy:2005, Katona:2012, Cotton:2013}. 
 
 
-The term \emph{functional connectivity} has been used to denote various concepts in the literature. Here we use this term to refer to statistical descriptions of the joint activity of groups of interacting cells that convey information about interactions between them.  Several investigators have distinguished functional connectivity from \emph{effective connectivity} with the former describing measured statistics and the latter inferred underlying interactions that explain the observed statistics \citep{Aertsen:1989,Friston:2011}. Since making the claim of the inference of underlying interactions is difficult to defend, we will will use the `functional connectivity' to refer to all statistical summaries of the joint activity. 
+Here we use this term to refer to statistical descriptions of the joint activity of groups of interacting cells that convey information about interactions between them.  Several investigators have distinguished functional connectivity from \emph{effective connectivity} with the former describing measured statistics and the latter inferred underlying interactions that explain the observed statistics \citep{Aertsen:1989,Friston:2011}. Since making the claim of the inference of underlying interactions is difficult to defend, we will will use the `functional connectivity' to refer to all statistical summaries of the joint activity. 
 
 %:w A fortuitous fact of neurobiology is that the spiking activity of individual cells can we efficiently described as a function of external stimuli with simple statistical models with only a handful of parameters fitted to the data \citep{Carandini:2005}. From the original discovery and with subsequent refinement of such descriptions over the past 50+ years, constructs such as \emph{receptive fields} and \emph{orientation tuning} have become principal tools for defining the \emph{functional architecture} of sensory cortex, \emph{i.e.}\ the relationship between single-cell properties of neural function and the cell types, cortical layers, synaptic connectivity, and the physical arrangements of cells  \citep{Hubel:1962,Ohki:2005,Reid:2012}.
