@@ -1,12 +1,15 @@
 \section{Computations in cortical microcircuits}
+
 Despite the vast amount of exquisite detail known about the anatomy and physiology of the cerebral cortex, its general operating principles remain unknown. 
 Understanding these principles holds promise of treating neurological disorders and even replicating in artificial machines the kinds of cognitive abilities that only animals have so far possessed.
 
-Several features of cortical architecture suggest that it may have a uniform functional design: an array of smaller modules carrying out canonical, general-purpose computations capable and versatile enough for solving different problems in different brain regions \citep{Mountcastle:1997, Douglas:2007}. 
+The central question addressed in this dissertation is the organization of interactions in large local groups of cortical neurons inferred directly from observations of their activity. With technologies allowing to record the simultaneous activity of large three-dimensional clusters of cells (up to 400 cells) \emph{in vivo} with high temporal resolution, we examined patterns of interactions with respect to physical distances separating the cells as well as the cell types and the stimulus response properties of individual cells. These characteristics of interactions are key factors in constraining the search for the long-hypothesized canonical organization of cortical computations.
+
+Several features of cortical architecture suggest that it may have a modular, uniform functional design --- an array of smaller modules carrying out canonical, general-purpose computations versatile enough to solve different problems in different brain regions \citep{Mountcastle:1997, Douglas:2007}. 
 Within the cortex, local synaptic connectivity is dense and recurrent while different cortical areas exhibit similar connectivity patterns between cortical layers, between different cell types, and to and from the subcortical regions \citep{Douglas:2004,Harris:2013}. 
-Furthermore, the multineuronal spiking activity of local populations consists of stereotyped dynamical patterns that are largely shaped by the local recurrent networks and can be triggered by external stimuli or occur spontaneously \citep{MacLean:2005,Luczak:2009,Harris:2011,Hofer:2011,Miller:2014}. 
-Additionally, cortical microcircuits can support multiple information processing streams with distinct computations and projection target areas \emph{Velez:2014}.
-If local canonical computations do indeed exist, describing and understanding the repertoire and implementation of the activity of cortical microcircuits could hold the key to a broad understanding of brain function.
+The multineuronal spiking activity of local populations consists of stereotyped dynamical patterns that are largely shaped by the local recurrent networks and can be triggered by external stimuli or occur spontaneously \citep{MacLean:2005,Luczak:2009,Harris:2011,Hofer:2011,Miller:2014}. 
+Additionally, cortical microcircuits can support multiple information processing streams with distinct computations and projection targets \citep{Velez:2014}.
+If local canonical computations do indeed exist, describing and understanding the repertoire of their functions could hold the key to a broad understanding of brain function.
 
 \section{Population calcium signals}
 Functional characterization of a cortical microcircuit requires measurements of the spiking activity of a sufficient fraction of its neurons simultaneously. 
@@ -14,35 +17,43 @@ Two-photon imaging of somatic calcium signals has emerged as the method of choic
 Recent advances have made it possible to simultaneously record from nearly every cell in a three-dimensional volume of tissue \emph{in vivo} \citep{Reddy:2005, Katona:2012, Cotton:2013}. 
 However, somatic calcium signals are imperfect approximations of the spiking activity: their low temporal resolution, optical contamination, and motion artifacts impose limitations on the inference of functional connectivity compared to electrophysiological recordings \citep{Gobel:2007,Grewe:2010,Cotton:2013}.
 
-\section{Measurements of functional connectivity}
-Empirical studies of the simultaneous activity of populations of neurons pursue two distinct but related goals: 
-One is to characterize the coding of information by the population  \citep{Zohary:1994,Averbeck:2006,Ecker:2011}. 
-The other is to characterize the physiological interactions between the neurons underlying their joint activity \citep{Feldt:2011}.
+We used the technique developed by \cite{Cotton:2013} for \emph{in vivo} high-speed 3D two-photon imaging of calcium signals to record the spiking activity of nearly every cell in volumes 200 $\mu$m wide and 100 $\mu$m deep in the superficial layers --- layer 2/3 and the top portion of layer 4 --- of mouse primary visual cortex.
+Although two-photon imaging does not allow recording from deeper layers, the tangential dimensions of the recorded cluster match the spatial extent of the dense synaptic connectivity \citep{Song:2005,Fino:2011,Perin:2011} that may delineate the putative cortical microcircuits. 
+Therefore, our recordings may already begin to approach the population sizes and densities sufficient to capture the majority of direct interactions in the center of the cluster and, perhaps, to get a glimpse of the overall functional organization of the superficial part of the cortical microcircuit.
+
+\section{Measures of functional connectivity}
+Empirical studies of multineuronal activity pursue two distinct but related goals: 
+One is to characterize the coding of information by the population  \citep{Zohary:1994,Averbeck:2006,Ecker:2011,Pillow:2011}. 
+The other is to characterize the physiological interactions between neurons that explain their joint activity \citep{Gerstein:1969,Feldt:2011,Denman:2013}.
 The two goals are related since interactions between neurons induce statistical dependence between their spike trains, which in turn affects the joint information they carry. 
-However, the two goals may require different optimization of statistical descriptions of empirical data. 
+However, the two goals may require different optimizations of statistical descriptions. 
 
-I define \emph{functional connectivity} as a statistical description of neural activity used for characterizing interactions between the elements of the neural circuit. 
-For alternative definitions of this and related terms, see \cite{Feldt:2011,Friston:2011}.
+I define \emph{functional connectivity} as a statistical description of multineuronal activity used for characterizing interactions between the elements of the neural circuit. 
+For alternative definitions of this and related terms, see \cite{Feldt:2011,Friston:2011}. The ultimate goal of functional connectivity is to relate function to structure: to describe how interactions between cells are organized with respect to their physical arrangement, cell type, and synaptic connectivity.
 
-The most popular measure of functional connectivity has been the Pearson correlation coefficient between the spike trains of cell pairs, often in the form of a crosscorrelogram \citep{Gerstein:1969, Denman:2013, Sadovsky:2014}. 
-Another popular approach focuses on identifying groups of coactivated neurons called cell assemblies or ensembles \citep{Gerstein:1989,Kenet:2003,Harris:2005,Ch:2010,Miller:2014}.  
-Recent studies of population activity have made used of probabilistic models fitted to empirical data to \citep{Stevenson:2008,Hertz:2011,Ganmor:2011}.
+The most popular measure of functional connectivity has been the Pearson correlation coefficient between the spike trains of cell pairs, often in the form of a crosscorrelogram \citep{Gerstein:1964,Gerstein:1969,Smith:2008,Denman:2013,Smith:2013,Smith:2013b,Sadovsky:2014}. 
+Another general approach identifies subsets of co-activated neurons called \emph{cell assemblies} or \emph{ensembles} as the organizing principle of multineuronal activity \citep{Gerstein:1989,Kenet:2003,Harris:2005,Ch:2010,Miller:2014}.  
+Recently, studies of population activity have also made used of probabilistic models that model pairwise interactions as well as coactivations \citep{Stevenson:2008,Pillow:2008,Hertz:2011,Ganmor:2011,Koster:2013,Tkacik:2013}.
 
-\section{Graphical modeling of functional connectivity}
-A central concept for functional connectivity is that of \emph{conditional independence}. 
-In multivariate analysis, statistical association between some variables calculated without regard for other variables is called \emph{marginal}.
-Marginal associations can reveal direct interactions but may also arise through interactions with disregarded or unobserved variables. 
-Observation of large numbers of interacting variables allows conditioning associations between variables on the values of all the other variables.  
-If such conditioning \emph{explains away} the association the variables are found to be  \emph{conditionally independent}.
-The identification of conditional independence structure in data is known as \emph{graphical modeling} \citep{Whitaker:1990, Koller:2009}.
-Popular probabilistic models of population activity such as generalized linear models \citep{Pillow:2008} or maximum-entropy models \citep{Hertz:2011} explicitly specify the conditional dependencies  
-
-The \emph{partial correlation} between a pair of variables is the correlation that remains after controlling for a third variable. The removal of the effect of a third variable can produce a clearer expression of the direct association between the variables.
-For example, the partial correlations between pairs of neurons with respect to the stimulus is known as \emph{noise correlations} because, to a linear decoder of the population response, deviations from the mean response are considered noise \citep{Zohary:1994}. 
-
-Noise correlations are most often analyzed for their effect on the accuracy of stimulus coding by a linear decoder that receives input read the recorded population \citep{Averbeck:2006,Ecker:2011} rather than a statistical expression of the functional connectivity. 
+In two-photon calcium recordings, pairwise correlations remain in common use as expressions of pairwise interactions between neurons often interpreted to signify anatomical connectivity \citep{Golshani:2009,Hofer:2011,Malmersjo:2013,Sadovsky:2014}.
 
 
+\section{Main contribution: Functional connectivity through partial correlations}
+Correlations between pairs of neurons are \emph{marginal} properties of their activity calculated without controlling for the activity of other cells. 
+As such, correlations may express associations arising through interactions with other cells. 
+In multineuronal recordings pairwise correlations could be improved as a measure functional connectivity by conditioning on the activity of the rest of the circuit. 
+In general such conditioning requires assuming some model of interactions between neurons. 
+However, when interactions are modeled linearly, such conditioning takes the form of \emph{partial correlations}, \ie correlations that remain after removing correlations due to other variables \citep{Whittaker:1990}. 
+For example, partial correlations with respect to the stimulus are referred to as \emph{noise correlations} and are used in studies of functional connectivity. 
+Furthermore, \cite{Ecker:2014} found that partial correlation with respect to common activity of the entire population could provide more consistent measurements of noise correlations across different brain states. 
+This study suggests that \emph{explaining away} components of correlations that originate from outside the local circuit could reveal a more precise view of the local interactions. 
 
-\section{Interpretation of functional connectivity}
-A fortuitous fact of neurobiology is that the spiking activity of individual cells can we efficiently described as a function of external stimuli with simple statistical models with only a handful of parameters fitted to the data \citep{Carandini:2005}. From the original discovery and with subsequent refinement of such descriptions over the past 50+ years, constructs such as \emph{receptive fields} and \emph{orientation tuning} have become principal tools for defining the \emph{functional architecture} of sensory cortex, \emph{i.e.}\ the relationship between single-cell properties of neural function and the cell types, cortical layers, synaptic connectivity, and the physical arrangements of cells  \citep{Hubel:1962,Ohki:2005,Reid:2012}.
+In \cite{Yatsenko:2014}, we proposed measuring functional connectivity in two-photon recordings through partial correlations between cell pairs with respect to \emph{all} the observed variables including the stimulus, the remaining recorded cells, and common fluctuations across the recorded population. 
+This study empirically demonstrated that partial correlations yield a closer correspondence to the physical and functional aspects of the cortical circuit than conventional marginal correlations but the estimation of connectivity required empirically optimized regularization.
+
+\section{Overview}
+Chapter 2 reproduces \cite{Yatsenko:2014} in its entirety including the background information, derivations, results, discussion, and methods. 
+
+Chapter 3 contains yet unpublished analysis of the structure of functional connectivity in cortical microcircuits with genetically labeled parvalbumin-positive (PV+) interneurons. Remarkably, partial correlations revealed clear differences in connectivity of PV+ cells compared to non-PV+ cells suggesting several possible physiological interpretations to be test in future experiments.
+
+Finally, Chapter 4 addresses questions of physiological significance and outlines future research.
