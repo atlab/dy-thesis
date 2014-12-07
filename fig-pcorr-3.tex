@@ -1,11 +1,21 @@
 \begin{figure}
+\begin{leftfullpage}
+\caption[Estimation of noise correlations from population calcium signals]
+{{\bf Estimation of noise correlations from population calcium signals.}
+Visual stimuli comprising full-field drifting gratings interleaved with blank screens ({\bf A}) presented during two-photon recordings of somatic calcium signals using fast 3D random-access microscopy ({\bf B}).
+{\bf C--F.} Calcium activity data from an example site.
+{\bf C.} Representative calcium signals of seven cells, downsampled to 20 Hz, out of the 292 total recorded cells. Spiking activity inferred by nonnegative deconvolution is shown by red ticks below the trace.
+{\bf D.} The spatial arrangement and orientation tuning of the 292 cells from the imaged site. The cells' colors indicate their orientation preferences. The gray cells were not significantly tuned.
+{\bf E.} The sample noise correlation matrix of the activity of the neural population.
+{\bf F.} Histogram of noise correlation coefficients in one site. The red line indicates the mean correlation coefficient of 0.020.
+}\label{fig:3}
+\end{leftfullpage}
+\end{figure}
+
+\begin{figure}
 \begin{fullpage}
         \begin{center}
-        \includegraphics[width=\textwidth]{./figures/Figure3.eps}
+        \includegraphics[height=\textheight]{./figures/Figure3.png}
         \end{center}
-\caption[Evaluation of correlation estimators by cross-validation]
-{{\bf Performance of estimator $C_{\sf sparse+latent}$ with respect to the normal loss function (eq.~\ref{eq:loss}) relative to the other estimators: $C_{\sf sample}$, $C_{\sf diag}$, $C_{\sf factor}$, and $C_{\sf sparse}$.}
-Covariance estimators $C_{\sf sample}$, $C_{\sf diag}$, $C_{\sf factor}$, and $C_{\sf sparse}$ produced consistently greater validation losses than $C_{\sf sparse+latent}$ ($p<0.01$ in each comparison, Wilcoxon signed rank test, $n=27$ sites in 14 mice). The box plots indicate the $25^{th}$, $50^{th}$, and $75^{th}$ percentiles with the whiskers extending to the minimum and maximum values after excluding the outliers marked with `+'.
-}\label{fig:3}
 \end{fullpage}
 \end{figure}
