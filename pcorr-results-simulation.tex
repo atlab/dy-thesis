@@ -19,8 +19,7 @@ However, estimators whose structure matched the true model outperformed the othe
 
 Note that when the ground truth had zero correlations (Column A), $C_{\sf factor}$ performed equally well to $C_{\sf diag}$ because it correctly inferred zero factors and only estimated the individual variances. 
 Similarly, when the number of latent units was zero (Column C), $C_{\sf sparse+latent}$ performed nearly equally well to $C_{\sf sparse}$ because it correctly inferred zero latent units.
-With increasing sample sizes, all estimators converged to the truth (zero loss).  
-However, the discriminability between their performances only increased with sample size (data not shown).
+With increasing sample sizes, all estimators converged to the ground truth (zero loss) but the estimators with correct structure outperformed the others even for large samples.
 
 In more realistic conditions, when the ground truth is not accessible, the loss cannot be computed directly but may be estimated from data through \emph{validation}.
 In a validation procedure, a validation sample covariance matrix $C_{\sf sample}^\prime$ is computed from a testing data set that is independent from the data used for computing $C$.
@@ -36,7 +35,7 @@ Since $\loss{\cdot,\cdot}$ is additive in its second argument and $C^\prime_{\sf
 \end{equation}
 Therefore, the validation procedure allows comparing the relative values of loss of different covariance estimators.
 
-Indeed, the validation loss computed by 10-fold cross-validation (see Methods) accurately reproduces the relative values of the true loss and the rankings of the covariance estimators without access to the ground truth (Fig.~\ref{fig:1} Row 6). 
+Indeed, the validation loss computed by 10-fold cross-validation (see Methods) accurately reproduced the relative values of the true loss and the rankings of the covariance estimators without access to the ground truth (Fig.~\ref{fig:1} Row 6). 
 
 In the example above, the data were sampled from  multivariate normal random variables. In such models, partial correlations perfectly characterize the conditional dependencies between variables and the graphical models of partial correlations exactly correspond to the conditional dependencies in the data. 
 To demonstrate that estimator rankings were robust to deviations from Gaussian models, we repeated the same cross-validated evaluation using pairwise Ising models to generate the data.

@@ -12,7 +12,8 @@
      \\
 {\bf Row 3:} Sample correlation matrices calculated from samples of size $n=500$ drawn from simulated random processes with respective correlation matrices shown in Row 2.  The structure of the sample correlation matrix is difficult to discern by eye.
      \\
-{\bf Row 4:} Estimates computed from the same data as in Row 3 using structured estimators of the correct type, optimized by cross-validation.  The regularized estimates are closer to the truth than the sample correlation matrices.
+{\bf Row 4:} Estimates computed from the same data as in Row 3 using structured estimators of the matching type: $C_{\sf diag}$ when the ground truth was diagonal in column A, $C_{\sf factor}$ when the ground truth is a factor model in column B, $C_{\sf sparse}$ when the ground truth has a sparse precision matrix in column C, and $C_{\sf sparse+latent}$ when the ground truth has both latent units and sparse linear interactions between observed units in column C.  Regularization was optimized by cross-validation. 
+The regularized estimates are closer to the truth than the sample correlation matrices.
      \\
 {\bf Row 5:} True loss (Eq.~\ref{eq:loss}) for the five estimators as a function of sample size. The error bars indicate the standard deviation of the mean.  Estimators with structure that matches the true model converged to zero faster than the other estimators.
      \\

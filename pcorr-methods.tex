@@ -64,7 +64,7 @@ C_{\sf sparse+latent} = \left(S-S_{12}S_{22}^{-1}S_{12}^\T\right)^{-1}
 \end{equation}
 The rank of the $p\times p$  matrix $L=S_{12}S_{22}^{-1}S_{12}^\T$ matches the number of the latent units in the joint distribution. Rather than finding $S_{12}$ and $S_{22}$ separately, $L$ can be estimated as a low-rank positive semidefinite matrix. To simultaneously optimize the sparse component $S$ and the low-rank component $L$, we adapted the loss function with $L_1$ penalty on $S$ combined with a penalty on the trace of $L$ \citep{Chandrasekaran:2010,Ma:2013}:
 \begin{equation}\label{eq:ma}
-(S,L) = \argmin\limits_{\hat S,\hat L} \loss{\hat S-\hat L, C_{\sf sample}} + \alpha\|\hat S\|_1 + \beta\Tr(\hat L)
+(S,L) = \argmin\limits_{\hat S,\hat L} \loss{(\hat S-\hat L)^{-1}, C_{\sf sample}} + \alpha\|\hat S\|_1 + \beta\Tr(\hat L)
 \end{equation}
 The trace of a symmetric semidefinite matrix equals the sum of the absolute values of its eigenvalues, \emph{i.e.} its \emph{nuclear norm}; penalty on $\Tr(L)$ favors solutions with few non-zero eigenvalues or, equivalently, low-rank solutions while keeping the convexity of the overall optimization problem \citep{Fazel:2002,Recht:2010}. This allows using convex optimization algorithm such as ADMM to be applied with great computational efficiency \citep{Ma:2013}.
 
